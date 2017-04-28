@@ -441,13 +441,21 @@ public class Lane extends Thread implements PinsetterObserver {
 		int totalScore = 0;
 		curScore = (int[]) scores.get(Cur);
 		for (int i = 0; i != 10; i++){
+			// REF this for loop wipes all the scores for some reason...
 			cumulScores[bowlIndex][i] = 0;
 		}
+		// REF ball is throw 1 or 2 within a frame
 		int current = 2*(frame - 1)+ball-1;
 		//Iterate through each ball until the current one.
 		for (int i = 0; i != current+2; i++){
 			//Spare:
 			if( i%2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i < 19){
+
+				// REF if it is on an odd frame (where spares are)
+				// REF and the scores in the frame add up to 10
+				// REF if there exists a score to add it to
+				// REF and if i isnt on the second part of the second last frame ( frame 9 throw 2 )
+
 				//This ball was a the second of a spare.  
 				//Also, we're not on the current ball.
 				//Add the next ball to the ith one in cumul.
@@ -456,15 +464,20 @@ public class Lane extends Thread implements PinsetterObserver {
 					//cumulScores[bowlIndex][i/2] += cumulScores[bowlIndex][i/2 -1];
 				}
 			} else if( i < current && i%2 == 0 && curScore[i] == 10  && i < 18){
+				//if this is a strike, which is at an even amount of frames
+				//and it is not the very last frame
 				strikeballs = 0;
-				//This ball is the first ball, and was a strike.
-				//If we can get 2 balls after it, good add them to cumul.
+				// REF This ball is the first ball, and was a strike.
+				// REF If we can get 2 balls after it, good add them to cumul.
 				if (curScore[i+2] != -1) {
+					// REF if there exists 2 more scores to add on, count it as a strike
 					strikeballs = 1;
 					if(curScore[i+3] != -1) {
+						//REF if there exists 3 more scores to add on, there are two strikes
 						//Still got em.
 						strikeballs = 2;
 					} else if(curScore[i+4] != -1) {
+						// REF if 
 						//Ok, got it.
 						strikeballs = 2;
 					}
