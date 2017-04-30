@@ -143,6 +143,9 @@ import java.util.HashMap;
 import java.util.Date;
 
 public class Lane extends Thread implements PinsetterObserver {
+	public static final int BALLS_PER_FRAME = 2;
+
+
 	private Party party;
 	private Pinsetter setter;
 	private HashMap scores;
@@ -485,30 +488,31 @@ public class Lane extends Thread implements PinsetterObserver {
 				if (strikeballs == 2){
 					//Add up the strike.
 					//Add the next two balls to the current cumulscore.
-					cumulScores[bowlIndex][i/2] += 10;
+					Integer frameNum = i/BALLS_PER_FRAME;
+					cumulScores[bowlIndex][frameNum] += 10;
 					if(curScore[i+1] != -1) {
-						cumulScores[bowlIndex][i/2] += curScore[i+1] + cumulScores[bowlIndex][(i/2)-1];
+						cumulScores[bowlIndex][frameNum] += curScore[i+1] + cumulScores[bowlIndex][(frameNum)-1];
 						if (curScore[i+2] != -1){
 							if( curScore[i+2] != -2){
-								cumulScores[bowlIndex][(i/2)] += curScore[i+2];
+								cumulScores[bowlIndex][(frameNum)] += curScore[i+2];
 							}
 						} else {
 							if( curScore[i+3] != -2){
-								cumulScores[bowlIndex][(i/2)] += curScore[i+3];
+								cumulScores[bowlIndex][(frameNum)] += curScore[i+3];
 							}
 						}
 					} else {
 						if ( i/2 > 0 ){
-							cumulScores[bowlIndex][i/2] += curScore[i+2] + cumulScores[bowlIndex][(i/2)-1];
+							cumulScores[bowlIndex][frameNum] += curScore[i+2] + cumulScores[bowlIndex][(frameNum)-1];
 						} else {
-							cumulScores[bowlIndex][i/2] += curScore[i+2];
+							cumulScores[bowlIndex][frameNum] += curScore[i+2];
 						}
 						if (curScore[i+3] != -1){
 							if( curScore[i+3] != -2){
-								cumulScores[bowlIndex][(i/2)] += curScore[i+3];
+								cumulScores[bowlIndex][(frameNum)] += curScore[i+3];
 							}
 						} else {
-							cumulScores[bowlIndex][(i/2)] += curScore[i+4];
+							cumulScores[bowlIndex][(frameNum)] += curScore[i+4];
 						}
 					}
 				} else {
