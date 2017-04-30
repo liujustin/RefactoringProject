@@ -509,10 +509,10 @@ public class Lane extends Thread implements PinsetterObserver {
 						}
 						if (curScore[i+3] != -1){
 							if( curScore[i+3] != -2){
-								cumulScores[bowlIndex][(frameNum)] += curScore[i+3];
+								cumulScores[bowlIndex][frameNum] += curScore[i+3];
 							}
 						} else {
-							cumulScores[bowlIndex][(frameNum)] += curScore[i+4];
+							cumulScores[bowlIndex][frameNum] += curScore[i+4];
 						}
 					}
 				} else {
