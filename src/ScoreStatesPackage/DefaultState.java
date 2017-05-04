@@ -7,9 +7,6 @@ import BowlerPackage.Bowler;
  */
 public class DefaultState implements Scoring{
 
-    private int[] curScores;
-    private int[][] cumulScores;
-
     public void getScore(int[] curScore, int[][] cumulScores, int throwIndex, int bowlIndex){
         int balls_per_frame = 2;
         int frameNum = throwIndex/balls_per_frame;
