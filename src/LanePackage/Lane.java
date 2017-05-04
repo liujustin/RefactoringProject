@@ -463,19 +463,19 @@ public class Lane extends Thread implements PinsetterObserver {
 			//Spare:
 			if( i%2 == 1 && curScore[i - 1] + curScore[i] == 10 && i <= current - 1 && i < 19){
 				scoreType = new SpareState();
-				scoreType.getScore(curScore,cumulScores, i, bowlIndex);
+				scoreType.getScore(curScore, cumulScores, i, bowlIndex);
 
 			}
 			//Strike:
 			else if( i < current && i%2 == 0 && curScore[i] == 10  && i < 18){
 				scoreType = new StrikeState();
-				scoreType.getScore(curScore,cumulScores,i,bowlIndex);
+				scoreType.getScore(curScore, cumulScores, i, bowlIndex);
 
 			}
 			//NormalThrow:
 			else {
 				scoreType = new DefaultState();
-				scoreType.getScore(curScore,cumulScores,i,bowlIndex);
+				scoreType.getScore(curScore, cumulScores, i, bowlIndex);
 			}
 		}
 		return totalScore;

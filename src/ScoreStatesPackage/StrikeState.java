@@ -8,10 +8,6 @@ import LanePackage.Lane;
  */
 public class StrikeState implements Scoring {
 
-    private int[] curScores;
-    private int[][] cumulScores;
-    private Bowler curBowler;
-
     public StrikeState (){
 
     }
