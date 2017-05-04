@@ -19,14 +19,14 @@ public class DefaultState implements Scoring{
         if( throwIndex%2 == 0 && throwIndex < 18){
             if ( throwIndex == 0 ) {
                 //First frame, first ball.  Set his cumul score to the first ball
-                if(curScore[throwIndex] != -2){
+                //if(curScore[throwIndex] != -2){
                     cumulScores[bowlIndex][frameNum] += curScore[throwIndex];
-                }
+                //}
             }
             else if (frameNum != 9){
                 //add his last frame's cumul to this ball, make it this frame's cumul.
                 if(curScore[throwIndex] != -2){
-                    cumulScores[bowlIndex][frameNum] += cumulScores[bowlIndex][frameNum - 1] + curScore[throwIndex];
+                     cumulScores[bowlIndex][frameNum] += cumulScores[bowlIndex][frameNum - 1] + curScore[throwIndex];
                 } else {
                     cumulScores[bowlIndex][frameNum] += cumulScores[bowlIndex][frameNum - 1];
                 }
@@ -34,9 +34,9 @@ public class DefaultState implements Scoring{
         }
         else if (throwIndex < 18){
             if(curScore[throwIndex] != -1 && throwIndex > 2){
-                if(curScore[throwIndex] != -2){
+                //if(curScore[throwIndex] != -2){
                     cumulScores[bowlIndex][frameNum] += curScore[throwIndex];
-                }
+                //}
             }
         }
         if ( throwIndex == 1 && curScore[throwIndex] > 0) {
