@@ -28,7 +28,7 @@ import BowlerPackage.Party;
 
 import java.util.HashMap;
 
-public class LaneEvent {
+public class LaneEvent implements LaneEventInterface {
 
 	private Party p;
 	int frame;

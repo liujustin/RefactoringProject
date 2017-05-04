@@ -16,14 +16,12 @@ import java.util.*;
 
 public class LaneView implements LaneObserver, ActionListener {
 
-	private int roll;
+
 	private boolean initDone = true;
 
 	JFrame frame;
 	Container cpanel;
 	Vector bowlers;
-	int cur;
-	Iterator bowlIt;
 
 	JPanel[][] balls;
 	JLabel[][] ballLabel;

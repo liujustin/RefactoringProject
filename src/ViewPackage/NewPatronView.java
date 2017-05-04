@@ -25,7 +25,7 @@ import javax.swing.border.*;
 
 public class NewPatronView implements ActionListener {
 
-	private int maxSize;
+
 
 	private JFrame win;
 	private JButton abort, finished;
@@ -35,7 +35,6 @@ public class NewPatronView implements ActionListener {
 
 	private boolean done;
 
-	private String selectedNick, selectedMember;
 	private AddPartyView addParty;
 
 	public NewPatronView(AddPartyView v) {
@@ -133,10 +132,6 @@ public class NewPatronView implements ActionListener {
 			win.hide();
 		}
 
-	}
-
-	public boolean done() {
-		return done;
 	}
 
 	public String getNick() {
