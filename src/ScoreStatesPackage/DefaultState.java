@@ -1,6 +1,5 @@
 package ScoreStatesPackage;
 
-import BowlerPackage.Bowler;
 
 /**
  * Created by Kaurakit on 5/1/2017.

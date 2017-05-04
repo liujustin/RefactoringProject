@@ -18,7 +18,7 @@ package BowlerPackage;/*
  */
 
 /**
- *  Class that holds all bowler info
+ *  Class that holds all bowler i
  *
  */
 

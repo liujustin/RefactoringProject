@@ -1,12 +1,10 @@
 package ScoreStatesPackage;
 
-import BowlerPackage.Bowler;
-import LanePackage.Lane;
-
 /**
  * Created by Kaurakit on 5/1/2017.
  */
 public class StrikeState implements Scoring {
+
 
     public StrikeState (){
 
