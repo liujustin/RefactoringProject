@@ -321,7 +321,7 @@ public class Lane extends Thread implements PinsetterObserver {
 						}
 					}
 				
-					if ((pe.totalPinsDown() != 10) && (pe.getThrowNumber() == 2 && tenthFrameStrike == false)) {
+					if ((pe.totalPinsDown() != 10) && (pe.getThrowNumber() == 2 && !tenthFrameStrike)) {
 						canThrowAgain = false;
 						//publish( lanePublish() );
 					}
@@ -461,7 +461,7 @@ public class Lane extends Thread implements PinsetterObserver {
 		for (int i = 0; i != current+2; i++){
 			Integer frameNum = i/BALLS_PER_FRAME;
 			//Spare:
-			if( i%2 == 1 && curScore[i - 1] + curScore[i] == 10 && i <= current - 1 && i < 19){
+			if( i%2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i < 19){
 				scoreType = new SpareState();
 				scoreType.getScore(curScore, cumulScores, i, bowlIndex);
 
