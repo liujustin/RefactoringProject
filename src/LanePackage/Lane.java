@@ -321,7 +321,7 @@ public class Lane extends Thread implements PinsetterObserver {
 						}
 					}
 				
-					if ((pe.totalPinsDown() != 10) && (pe.getThrowNumber() == 2 && tenthFrameStrike == false)) {
+					if ((pe.totalPinsDown() != 10) && (pe.getThrowNumber() == 2 && !tenthFrameStrike)) {
 						canThrowAgain = false;
 						//publish( lanePublish() );
 					}
