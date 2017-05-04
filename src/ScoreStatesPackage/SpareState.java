@@ -1,12 +1,17 @@
 package ScoreStatesPackage;
 
+import BowlerPackage.Bowler;
+import LanePackage.Lane;
+
 /**
  * Created by Kaurakit on 5/1/2017.
  */
 public class SpareState implements Scoring{
 
-    public int getScore(){
-        return 0;
+    public void getScore(int[] curScore, int[][] cumulScores, int throwIndex, int bowlIndex){
+        int balls_per_frame = 2;
+        int frameNum = throwIndex/balls_per_frame;
+        cumulScores[bowlIndex][(frameNum)] += curScore[throwIndex+1] + curScore[throwIndex];
     }
 
 }

@@ -136,6 +136,10 @@ import BowlerPackage.*;
 import LanePackage.*;
 import PinsetterPackage.*;
 import ScorePackage.*;
+import ScoreStatesPackage.DefaultState;
+import ScoreStatesPackage.Scoring;
+import ScoreStatesPackage.SpareState;
+import ScoreStatesPackage.StrikeState;
 
 import java.util.Vector;
 import java.util.Iterator;
@@ -162,13 +166,15 @@ public class Lane extends Thread implements PinsetterObserver {
 	private boolean tenthFrameStrike;
 
 	private int[] curScores;
-	private int[][] cumulScores;
+	private static int[][] cumulScores;
 	private boolean canThrowAgain;
 	
 	private int[][] finalScores;
 	private int gameNumber;
 	
 	private Bowler currentThrower;			// = the thrower who just took a throw
+
+	private static Scoring scoreType;
 
 	/** Lane()
 	 * 
@@ -444,116 +450,32 @@ public class Lane extends Thread implements PinsetterObserver {
 		int totalScore = 0;
 		curScore = (int[]) scores.get(Cur);
 		for (int i = 0; i != 10; i++){
-			// REF this for loop wipes all the scores for some reason...
 			cumulScores[bowlIndex][i] = 0;
 		}
 		// REF ball is throw 1 or 2 within a frame
 		int current = 2*(frame - 1)+ball-1;
+
+		scoreType = new DefaultState();
+
 		//Iterate through each ball until the current one.
 		for (int i = 0; i != current+2; i++){
+			Integer frameNum = i/BALLS_PER_FRAME;
 			//Spare:
 			if( i%2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i < 19){
+				scoreType = new SpareState();
+				scoreType.getScore(curScore,cumulScores, i, bowlIndex);
 
-				// REF if it is on an odd frame (where spares are)
-				// REF and the scores in the frame add up to 10
-				// REF if there exists a score to add it to
-				// REF and if i isnt on the second part of the second last frame ( frame 9 throw 2 )
+			}
+			//Strike:
+			else if( i < current && i%2 == 0 && curScore[i] == 10  && i < 18){
+				scoreType = new StrikeState();
+				scoreType.getScore(curScore,cumulScores,i,bowlIndex);
 
-				//This ball was a the second of a spare.  
-				//Also, we're not on the current ball.
-				//Add the next ball to the ith one in cumul.
-				cumulScores[bowlIndex][(i/2)] += curScore[i+1] + curScore[i]; 
-				if (i > 1) {
-					//cumulScores[bowlIndex][i/2] += cumulScores[bowlIndex][i/2 -1];
-				}
-			} else if( i < current && i%2 == 0 && curScore[i] == 10  && i < 18){
-				//if this is a strike, which is at an even amount of frames
-				//and it is not the very last frame
-				strikeballs = 0;
-				// REF This ball is the first ball, and was a strike.
-				// REF If we can get 2 balls after it, good add them to cumul.
-				if (curScore[i+2] != -1) {
-					// REF if there exists 2 more scores to add on, count it as a strike
-					strikeballs = 1;
-					if(curScore[i+3] != -1) {
-						//REF if there exists 3 more scores to add on, there are two strikes
-						//Still got em.
-						strikeballs = 2;
-					} else if(curScore[i+4] != -1) {
-						// REF if 
-						//Ok, got it.
-						strikeballs = 2;
-					}
-				}
-				if (strikeballs == 2){
-					//Add up the strike.
-					//Add the next two balls to the current cumulscore.
-					Integer frameNum = i/BALLS_PER_FRAME;
-					cumulScores[bowlIndex][frameNum] += 10;
-					if(curScore[i+1] != -1) {
-						cumulScores[bowlIndex][frameNum] += curScore[i+1] + cumulScores[bowlIndex][(frameNum)-1];
-						if (curScore[i+2] != -1){
-							if( curScore[i+2] != -2){
-								cumulScores[bowlIndex][(frameNum)] += curScore[i+2];
-							}
-						} else {
-							if( curScore[i+3] != -2){
-								cumulScores[bowlIndex][(frameNum)] += curScore[i+3];
-							}
-						}
-					} else {
-						if ( i/2 > 0 ){
-							cumulScores[bowlIndex][frameNum] += curScore[i+2] + cumulScores[bowlIndex][(frameNum)-1];
-						} else {
-							cumulScores[bowlIndex][frameNum] += curScore[i+2];
-						}
-						if (curScore[i+3] != -1){
-							if( curScore[i+3] != -2){
-								cumulScores[bowlIndex][(frameNum)] += curScore[i+3];
-							}
-						} else {
-							cumulScores[bowlIndex][(frameNum)] += curScore[i+4];
-
-						}
-					}
-				} else {
-					break;
-				}
-			}else { 
-				//We're dealing with a normal throw, add it and be on our way.
-				if( i%2 == 0 && i < 18){
-					if ( i/2 == 0 ) {
-						//First frame, first ball.  Set his cumul score to the first ball
-						if(curScore[i] != -2){	
-							cumulScores[bowlIndex][i/2] += curScore[i];
-						}
-					} else if (i/2 != 9){
-						//add his last frame's cumul to this ball, make it this frame's cumul.
-						if(curScore[i] != -2){
-							cumulScores[bowlIndex][i/2] += cumulScores[bowlIndex][i/2 - 1] + curScore[i];
-						} else {
-							cumulScores[bowlIndex][i/2] += cumulScores[bowlIndex][i/2 - 1];
-						}	
-					}
-				} else if (i < 18){ 
-					if(curScore[i] != -1 && i > 2){
-						if(curScore[i] != -2){
-							cumulScores[bowlIndex][i/2] += curScore[i];
-						}
-					}
-				}
-				if (i/2 == 9){
-					if (i == 18){
-						cumulScores[bowlIndex][9] += cumulScores[bowlIndex][8];	
-					}
-					if(curScore[i] != -2){
-						cumulScores[bowlIndex][9] += curScore[i];
-					}
-				} else if (i/2 == 10) {
-					if(curScore[i] != -2){
-						cumulScores[bowlIndex][9] += curScore[i];
-					}
-				}
+			}
+			//NormalThrow:
+			else {
+				scoreType = new DefaultState();
+				scoreType.getScore(curScore,cumulScores,i,bowlIndex);
 			}
 		}
 		return totalScore;
