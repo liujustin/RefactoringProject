@@ -137,19 +137,12 @@ public class ControlDesk extends Thread {
 		while (it.hasNext() && partyQueue.hasMoreElements()) {
 			Lane curLane = (Lane) it.next();
 
-			if (curLane.isPartyAssigned() == false) {
+			if (!curLane.isPartyAssigned()) {
 				System.out.println("ok... assigning this party");
 				curLane.assignParty(((Party) partyQueue.next()));
 			}
 		}
 		publish(new ControlDeskEvent(getPartyQueue()));
-	}
-
-    /**
-     */
-
-	public void viewScores(Lane ln) {
-		// TODO: attach a LaneScoreView object to that lane
 	}
 
     /**

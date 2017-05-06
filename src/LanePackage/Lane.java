@@ -431,7 +431,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * @return		The new lane event
 	 */
 	private LaneEvent lanePublish(  ) {
-		LaneEvent laneEvent = new LaneEvent(party, bowlIndex, currentThrower, cumulScores, scores, frameNumber+1, curScores, ball, gameIsHalted);
+		LaneEvent laneEvent = new LaneEvent(party, bowlIndex, currentThrower, cumulScores, scores, frameNumber+1, ball, gameIsHalted);
 		return laneEvent;
 	}
 
@@ -489,14 +489,6 @@ public class Lane extends Thread implements PinsetterObserver {
 		return partyAssigned;
 	}
 	
-	/** isGameFinished
-	 * 
-	 * @return true if the game is done, false otherwise
-	 */
-	public boolean isGameFinished() {
-		return gameFinished;
-	}
-
 	/** subscribe
 	 * 
 	 * Method that will add a subscriber
@@ -506,17 +498,6 @@ public class Lane extends Thread implements PinsetterObserver {
 
 	public void subscribe( LaneObserver adding ) {
 		subscribers.add( adding );
-	}
-
-	/** unsubscribe
-	 * 
-	 * Method that unsubscribes an observer from this object
-	 * 
-	 * @param removing	The observer to be removed
-	 */
-	
-	public void unsubscribe( LaneObserver removing ) {
-		subscribers.remove( removing );
 	}
 
 	/** publish

@@ -50,7 +50,6 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 	private JButton addPatron, newPatron, remPatron, finished;
 	private JList partyList, allBowlers;
 	private Vector party, bowlerdb;
-	private Integer lock;
 
 	private ControlDeskView controlDesk;
 
@@ -201,14 +200,6 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 			selectedMember =
 				((String) ((JList) e.getSource()).getSelectedValue());
 		}
-	}
-
-/**
- * Accessor for Party
- */
-
-	public Vector getNames() {
-		return party;
 	}
 
 /**

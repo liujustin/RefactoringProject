@@ -22,7 +22,6 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 	private JFrame win;
 	private JButton printButton, finished;
 	private JList memberList;
-	private Vector myVector;
 	private Vector retVal;
 
 	private int result;
@@ -125,10 +124,6 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 			}
 		}
 		return retVal;	
-	}
-	
-	public void destroy() {
-		win.hide();
 	}
 
 	public static void main( String args[] ) {
