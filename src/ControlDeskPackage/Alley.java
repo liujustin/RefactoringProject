@@ -21,6 +21,7 @@ package ControlDeskPackage;/*
  */
 
 import ControlDeskPackage.ControlDesk;
+import ViewPackage.ControlDeskView;
 
 /**
  *  Class that is the outer container for the bowling sim
@@ -28,17 +29,34 @@ import ControlDeskPackage.ControlDesk;
  */
 
 public class Alley {
+
 	public ControlDesk controldesk;
 
-    public Alley( int numLanes ) {
-        controldesk = new ControlDesk( numLanes );
-    }
+	public Alley(int numLanes) {
+		controldesk = new ControlDesk(numLanes);
+	}
 
 	public ControlDesk getControlDesk() {
 		return controldesk;
 	}
-	
+
+
+	public static void main(String[] args) {
+
+		int numLanes = 3;
+		int maxPatronsPerParty = 5;
+
+		Alley a = new Alley(numLanes);
+		ControlDesk controlDesk = a.getControlDesk();
+
+		ControlDeskView cdv = new ControlDeskView(controlDesk, maxPatronsPerParty);
+		controlDesk.subscribe(cdv);
+
+	}
 }
+
+
+
 
 
     
