@@ -13,8 +13,7 @@ public class StrikeState implements Scoring {
     }
 
     public void getScore(int[] curScore, int[][] cumulScores, int throwIndex, int bowlIndex){
-        int balls_per_frame = 2;
-        int frameNum = throwIndex/balls_per_frame;
+        int frameNum = throwIndex/BALLS_PER_FRAME;
 
         boolean strikeballs = false;
 
@@ -35,16 +34,13 @@ public class StrikeState implements Scoring {
             cumulScores[bowlIndex][frameNum] += 10;
             if(curScore[throwIndex+1] != -1) {
                 cumulScores[bowlIndex][frameNum] += curScore[throwIndex+1] + cumulScores[bowlIndex][(frameNum)-1];
-                if (curScore[throwIndex+2] != -1){
-                    if( curScore[throwIndex+2] != -2){
+                if (curScore[throwIndex+2] != -1 && curScore[throwIndex+2] != -2){
+                    //if( curScore[throwIndex+2] != -2){
                         cumulScores[bowlIndex][(frameNum)] += curScore[throwIndex+2];
-                    }
-                } else {
-                    if( curScore[throwIndex+3] != -2){
-                        cumulScores[bowlIndex][(frameNum)] += curScore[throwIndex+3];
-                    }
+                    //}
                 }
-            } else {
+            }
+            else {
                 if ( throwIndex/2 > 0 ){
                     cumulScores[bowlIndex][frameNum] += curScore[throwIndex+2] + cumulScores[bowlIndex][(frameNum)-1];
                 } else {

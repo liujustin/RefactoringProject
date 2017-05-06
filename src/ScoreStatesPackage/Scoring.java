@@ -7,6 +7,8 @@ import BowlerPackage.Bowler;
  */
 public interface Scoring {
 
-    public void getScore(int[] curScore, int[][] cumulScores, int throwIndex, int bowlIndex);
+    int BALLS_PER_FRAME = 2;
+
+    void getScore(int[] curScore, int[][] cumulScores, int throwIndex, int bowlIndex);
 
 }

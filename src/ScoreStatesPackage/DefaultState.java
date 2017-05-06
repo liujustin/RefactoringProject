@@ -8,17 +8,15 @@ import BowlerPackage.Bowler;
 public class DefaultState implements Scoring{
 
     public void getScore(int[] curScore, int[][] cumulScores, int throwIndex, int bowlIndex){
-        int balls_per_frame = 2;
-        int frameNum = throwIndex/balls_per_frame;
+        int frameNum = throwIndex/BALLS_PER_FRAME;
 
         //We're dealing with a normal throw, add it and be on our way.
 
         if( throwIndex%2 == 0 && throwIndex < 18){
             if ( throwIndex == 0 ) {
                 //First frame, first ball.  Set his cumul score to the first ball
-                //if(curScore[throwIndex] != -2){
-                    cumulScores[bowlIndex][frameNum] += curScore[throwIndex];
-                //}
+                cumulScores[bowlIndex][frameNum] += curScore[throwIndex];
+
             }
             else if (frameNum != 9){
                 //add his last frame's cumul to this ball, make it this frame's cumul.
@@ -31,9 +29,7 @@ public class DefaultState implements Scoring{
         }
         else if (throwIndex < 18){
             if(curScore[throwIndex] != -1 && throwIndex > 2){
-                //if(curScore[throwIndex] != -2){
-                    cumulScores[bowlIndex][frameNum] += curScore[throwIndex];
-                //}
+                cumulScores[bowlIndex][frameNum] += curScore[throwIndex];
             }
         }
         if ( throwIndex == 1 && curScore[throwIndex] > 0) {

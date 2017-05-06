@@ -446,9 +446,10 @@ public class Lane extends Thread implements PinsetterObserver {
 	 */
 	private int getScore(Bowler Cur, int frame ) {
 		int[] curScore;
-		int strikeballs = 0;
 		int totalScore = 0;
 		curScore = (int[]) scores.get(Cur);
+
+		//clear cumulScores
 		for (int i = 0; i != 10; i++){
 			cumulScores[bowlIndex][i] = 0;
 		}
@@ -459,18 +460,15 @@ public class Lane extends Thread implements PinsetterObserver {
 
 		//Iterate through each ball until the current one.
 		for (int i = 0; i != current+2; i++){
-			Integer frameNum = i/BALLS_PER_FRAME;
 			//Spare:
-			if( i%2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i < 19){
+			if( i%2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i <= 19){
 				scoreType = new SpareState();
 				scoreType.getScore(curScore, cumulScores, i, bowlIndex);
-
 			}
 			//Strike:
 			else if( i < current && i%2 == 0 && curScore[i] == 10  && i < 18){
 				scoreType = new StrikeState();
 				scoreType.getScore(curScore, cumulScores, i, bowlIndex);
-
 			}
 			//NormalThrow:
 			else {
