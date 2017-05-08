@@ -133,11 +133,10 @@ package LanePackage;
 
 import EndGamePackage.*;
 import BowlerPackage.*;
-import LanePackage.*;
 import PinsetterPackage.*;
 import ScorePackage.*;
-import ScoreStatesPackage.DefaultState;
-import ScoreStatesPackage.Scoring;
+import ScoreStatesPackage.NormalThrowState;
+import ScoreStatesPackage.ScoringState;
 import ScoreStatesPackage.SpareState;
 import ScoreStatesPackage.StrikeState;
 
@@ -174,7 +173,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	
 	private Bowler currentThrower;			// = the thrower who just took a throw
 
-	private static Scoring scoreType;
+	private static ScoringState scoreType;
 
 	/** Lane()
 	 * 
@@ -456,7 +455,7 @@ public class Lane extends Thread implements PinsetterObserver {
 		// REF ball is throw 1 or 2 within a frame
 		int current = 2*(frame - 1)+ball-1;
 
-		scoreType = new DefaultState();
+		scoreType = new NormalThrowState();
 
 		//Iterate through each ball until the current one.
 		for (int i = 0; i != current+2; i++){
@@ -472,7 +471,7 @@ public class Lane extends Thread implements PinsetterObserver {
 			}
 			//NormalThrow:
 			else {
-				scoreType = new DefaultState();
+				scoreType = new NormalThrowState();
 				scoreType.getScore(curScore, cumulScores, i, bowlIndex);
 			}
 		}

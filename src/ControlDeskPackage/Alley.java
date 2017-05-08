@@ -30,28 +30,15 @@ import ViewPackage.ControlDeskView;
 
 public class Alley {
 
-//	public ControlDesk controldesk;
-
-//	public Alley(int numLanes) {
-//		controldesk = new ControlDesk(numLanes);
-//	}
-//
-//	public ControlDesk getControlDesk() {
-//		return controldesk;
-//	}
-
 	public static void main(String[] args) {
 
 		int numLanes = 3;
 		int maxPatronsPerParty = 5;
-		ControlDesk controldesk;
 
-//		Alley a = new Alley(numLanes);
-		controldesk = new ControlDesk(numLanes);
-		ControlDesk controlDesk = controldesk;
+		ControlDesk controldesk = new ControlDesk(numLanes);
 
-		ControlDeskView cdv = new ControlDeskView(controlDesk, maxPatronsPerParty);
-		controlDesk.subscribe(cdv);
+		ControlDeskView cdv = new ControlDeskView(controldesk, maxPatronsPerParty);
+		controldesk.subscribe(cdv);
 
 	}
 }

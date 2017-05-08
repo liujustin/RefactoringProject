@@ -57,7 +57,7 @@ package PinsetterPackage;/*
  *   misc fixes across the board
  *
  *   Revision 1.5  2003/01/13 22:35:21  ???
- *   Scoring works.
+ *   ScoringState works.
  *
  *   Revision 1.3  2003/01/12 22:37:20  ???
  *   Wrote a better algorythm for knocking down pins
